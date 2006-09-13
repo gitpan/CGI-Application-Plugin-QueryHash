@@ -1,0 +1,8 @@
+Changes
+MANIFEST
+Makefile.PL
+lib/CGI/Application/Plugin/QueryHash.pm
+t/01-basic.t
+t/pod.t
+t/pod_coverage.t
+META.yml                                 Module meta-data (added by MakeMaker)
