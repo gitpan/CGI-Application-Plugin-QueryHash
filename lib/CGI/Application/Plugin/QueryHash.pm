@@ -11,15 +11,21 @@ our @EXPORT = qw(
     );
 
 # Version number.
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 # Returns query parameters as a hash(ref).
 sub query_hash {
-    my $self = shift;
+    my ($self, @params) = @_;
     my $q = $self->query();
 
+    # Get list of parameters to retrieve (default all)
+    unless (@params) {
+        @params = $q->param();
+    }
+
+    # Go get the query params, turning it into a hash.
     my %hash;
-    foreach my $param ($q->param()) {
+    foreach my $param (@params) {
         my @val = $q->param( $param );
         if (scalar(@val) > 1) {
             $hash{$param} = \@val;
@@ -47,6 +53,9 @@ CGI::Application::Plugin::QueryHash - Get back query params as hash(ref)
   # get query params as hash-ref
   $params = $self->query_hash();
 
+  # get only certain parameters
+  %params = $self->query_hash( @known_parameters );
+
 =head1 DESCRIPTION
 
 C<CGI::Application::Plugin::QueryHash> helps make it easier to get access to
@@ -57,11 +66,14 @@ parameter directly.
 
 =over
 
-=item C<query_hash()>
+=item C<query_hash(@params)>
 
 Returns to the caller the CGI query parameters as a hash/hash-ref, depending on
 whether called in a list or scalar context.  Repeating form parameters are
 handled by turning them into list-refs inside the results.
+
+If a list of C<@params> is provided, we only return the values for those query
+parameters.  By default, all of the CGI query parameters are returned.
 
 =back
 

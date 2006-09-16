@@ -1,4 +1,8 @@
 Revision history for Perl extension CGI::Application::Plugin::QueryHash
 
-1.00    Wed Sep 13 11:32:00am 2006
+1.01    Fri Sep 15 11:26am 2006
+    - allow for optional list of '@params' to be passed to 'query_hash()',
+      so we only get the values for those parameters.
+
+1.00    Wed Sep 13 11:32am 2006
     - original version
